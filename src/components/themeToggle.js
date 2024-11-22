@@ -11,8 +11,8 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="btn">
-      {darkMode ? "Açık Mod" : "Koyu Mod"}
+    <button onClick={toggleTheme} className="btn font-bold">
+      {darkMode ? "Light Mod" : "Dark Mod"}
     </button>
   );
 };

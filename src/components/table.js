@@ -1,28 +1,33 @@
 "use client";
 
-const data = [
-  { date: "May 05, 2022", sales: "$250,937.80", remittance: "$11,292.20" },
-  { date: "May 04, 2022", sales: "$238,315.85", remittance: "$10,724.85" },
-  { date: "May 03, 2022", sales: "$244,494.41", remittance: "$11,734.87" },
-];
+import { useFinance } from "../contexts/FinanceContext";
+import { format } from "date-fns";
 
 const Table = () => {
+  const { financeData } = useFinance();
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mt-6">
       <table className="w-full">
         <thead>
           <tr className="text-left text-sm text-gray-500 border-b">
-            <th className="py-2">Date</th>
-            <th className="py-2">Sales</th>
-            <th className="py-2">Wayflyer Remittance</th>
+            <th className="py-2">Tarih</th>
+            <th className="py-2">Kategori</th>
+            <th className="py-2">Tutar</th>
+            <th className="py-2">Tür</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {financeData.map((item, index) => (
             <tr key={index} className="text-sm text-gray-700 border-b">
-              <td className="py-2">{item.date}</td>
-              <td className="py-2">{item.sales}</td>
-              <td className="py-2">{item.remittance}</td>
+              <td className="py-2">
+                {format(new Date(item.date), "MMM dd, yyyy")}
+              </td>{" "}
+              <td className="py-2">{item.category}</td> {/* Kategori */}
+              <td className="py-2">{`₺${item.amount.toFixed(2)}`}</td>{" "}
+              <td className="py-2">
+                {item.type === "gelir" ? "Gelir" : "Gider"}
+              </td>{" "}
             </tr>
           ))}
         </tbody>
